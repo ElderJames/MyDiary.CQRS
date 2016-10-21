@@ -157,8 +157,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Add.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +173,16 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyDiary.CQRS.Configuration\MyDiary.CQRS.Configuration.csproj">
+      <Project>{82ff8ee3-7dbf-41d5-b255-e916afdd3e18}</Project>
+      <Name>MyDiary.CQRS.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyDiary.CQRS\MyDiary.CQRS.csproj">
+      <Project>{848dc2ab-8cec-4d23-997f-247991a12ec5}</Project>
+      <Name>MyDiary.CQRS</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

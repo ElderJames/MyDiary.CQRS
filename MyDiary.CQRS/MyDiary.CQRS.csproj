@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="StructureMap, Version=3.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.4.143\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=3.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.4.143\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,18 +48,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CommandHandlers\ChangeItemCommandHandler.cs" />
+    <Compile Include="CommandHandlers\CreateItemCommandHandler.cs" />
+    <Compile Include="CommandHandlers\DeleteItemCommandHandler.cs" />
+    <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="Commands\ChangeItemCommand.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CreateItemCommand.cs" />
+    <Compile Include="Commands\DeleteItemCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Domain\AggregateRoot.cs" />
     <Compile Include="Domain\DiaryItem.cs" />
     <Compile Include="Domain\IEventProvider.cs" />
+    <Compile Include="Domain\Mementos\BaseMemento.cs" />
+    <Compile Include="Domain\Mementos\DiaryItemMemento.cs" />
+    <Compile Include="EventHandlers\IEventHandler.cs" />
+    <Compile Include="EventHandlers\ItemChangeDescriptionEventHandler.cs" />
+    <Compile Include="EventHandlers\ItemChangedTitleEventHandler.cs" />
+    <Compile Include="EventHandlers\ItemCreatedEventHandler.cs" />
+    <Compile Include="EventHandlers\ItemDeletedEventHandler.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IHandle.cs" />
+    <Compile Include="Events\ItemChangeDescriptionEvent.cs" />
+    <Compile Include="Events\ItemChangedTitleEvent.cs" />
     <Compile Include="Events\ItemCreatedEvent.cs" />
+    <Compile Include="Events\ItemDeletedEvent.cs" />
+    <Compile Include="Messaging\CommandBus.cs" />
+    <Compile Include="Messaging\EventBus.cs" />
+    <Compile Include="Messaging\ICommandBus.cs" />
+    <Compile Include="Messaging\IEventBus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporting\DiaryItemDto.cs" />
+    <Compile Include="Reporting\IReportDatabase.cs" />
+    <Compile Include="Reporting\ReportDatabase.cs" />
+    <Compile Include="Storage\IEventStorage.cs" />
+    <Compile Include="Storage\InMemoryEventStorage.cs" />
+    <Compile Include="Storage\IRepository.cs" />
+    <Compile Include="Storage\Memento\IOriginator.cs" />
+    <Compile Include="Storage\Repository.cs" />
+    <Compile Include="Utils\CommandHandlerFactory.cs" />
     <Compile Include="Utils\Converter.cs" />
+    <Compile Include="Utils\EventHandlerFactory.cs" />
+    <Compile Include="Utils\ICommandHandlerFactory.cs" />
+    <Compile Include="Utils\IEventHandlerFactory.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

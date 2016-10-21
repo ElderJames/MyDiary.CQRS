@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyDiary.CQRS.Configuration;
+using MyDiary.CQRS.Commands;
+using MyDiary.CQRS.Reporting;
 
 namespace MyDiary.CQRS.Web.Controllers
 {
@@ -10,21 +13,45 @@ namespace MyDiary.CQRS.Web.Controllers
     {
         public ActionResult Index()
         {
+            var items = ServiceLocator.ReportDatabase.GetItems();
+            return View(items);
+        }
+
+        [HttpGet]
+        public ActionResult Add()
+        {
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Add(DiaryItemDto item)
         {
-            ViewBag.Message = "Your application description page.";
+            ServiceLocator.CommanBus.Send(new CreateItemCommand(Guid.NewGuid() ,item.Title,item.Description,item.Version,item.From,item.To));
 
-            return View();
+            return RedirectToAction("Index");
         }
 
-        public ActionResult Contact()
+        [HttpGet]
+        public ActionResult Edit(Guid Id)
         {
-            ViewBag.Message = "Your contact page.";
+            var item = ServiceLocator.ReportDatabase.GetById(Id);
+            return View(item);
+        }
 
-            return View();
+        [HttpPost]
+        public ActionResult Edit(Guid Id,DiaryItemDto item)
+        {
+            ServiceLocator.CommanBus.Send(new ChangeItemCommand(Id,item.Title,item.Description,item.Version,item.From,item.To));
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(Guid Id)
+        {
+            var item=ServiceLocator.ReportDatabase.GetById(Id);
+
+            ServiceLocator.CommanBus.Send(new DeleteItemCommand(Id,item.Version));
+            return RedirectToAction("Index");
         }
     }
 }

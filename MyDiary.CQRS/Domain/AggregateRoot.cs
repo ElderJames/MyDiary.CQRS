@@ -9,10 +9,11 @@ using MyDiary.CQRS.Utils;
 namespace MyDiary.CQRS.Domain
 {
     /// <summary>
-    /// 聚合根
+    /// 聚合根基类
     /// </summary>
     public abstract class AggregateRoot : IEventProvider
     {
+        //缓存每次请求的所有更改，如一次请求中包含多次修改，最后一并处理
         private readonly List<Event> _changes;
 
         public Guid Id { get; set; }
@@ -47,10 +48,12 @@ namespace MyDiary.CQRS.Domain
         /// <param name="history"></param>
         public void LoadsFromHistory(IEnumerable<Event> history)
         {
+            //执行历史事件中的更改
             foreach (var e in history)
             {
                 ApplyChange(e, false);
             }
+            //事件版本号为最后一个更改的版本
             EventVersion = Version = history.Last().Version;
         }
 
